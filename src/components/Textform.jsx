@@ -1,7 +1,7 @@
 import { Button } from "@material-tailwind/react";
 import React, { useState } from "react";
 
-const Textform = () => {
+const Textform = (props) => {
   const [text, setText] = useState("");
   function titleCase(str) {
     return str
@@ -30,8 +30,8 @@ const Textform = () => {
   };
 
   const handleSome = () => {
-    let res=text.split(/[ ]+/);
-    setText(res.join(" "))
+    let res = text.split(/[ ]+/);
+    setText(res.join(" "));
   };
 
   const handleReverse = (str) => {
@@ -63,25 +63,31 @@ const Textform = () => {
   }
 
   return (
-    <div className="Main sm:w-3/5 mx-auto flex flex-col">
+    <div
+      className={`Main sm:w-3/5 mx-auto flex flex-col ${
+        props.mode === "dark" && "text-white"
+      }`}
+    >
       <h1 className=" text-2xl my-2">Enter The Text To Analyze Below</h1>
       <textarea
         onChange={(e) => setText(e.target.value)}
-        className=" my-2 p-3 border-solid border border-black resize-none"
+        className={` my-2 p-3 border-solid border border-${props.mode==="light"?'black':'white bg-black'} resize-none `}
         value={text}
         rows="4"
         id="textBox"
       ></textarea>
       <div>
         <Button
+          color={`${props.mode === "dark" && "white"}`}
           className=" w-fit m-2"
           onClick={() => {
             setText("");
           }}
         >
-          ClaarText
+          ClearText
         </Button>
         <Button
+          color={`${props.mode === "dark" && "white"}`}
           className=" w-fit m-2"
           onClick={() => {
             setText(text.toUpperCase());
@@ -90,6 +96,7 @@ const Textform = () => {
           UpperCase
         </Button>
         <Button
+          color={`${props.mode === "dark" && "white"}`}
           className=" w-fit m-2"
           onClick={() => {
             setText(text.toLowerCase());
@@ -98,6 +105,7 @@ const Textform = () => {
           LowerCase
         </Button>
         <Button
+          color={`${props.mode === "dark" && "white"}`}
           className=" w-fit m-2"
           onClick={() => {
             setText(titleCase(text));
@@ -105,16 +113,32 @@ const Textform = () => {
         >
           TitleCase
         </Button>
-        <Button className=" w-fit m-2" onClick={handleTextCopy}>
+        <Button
+          color={`${props.mode === "dark" && "white"}`}
+          className=" w-fit m-2"
+          onClick={handleTextCopy}
+        >
           CopyText
         </Button>
-        <Button className=" w-fit m-2" onClick={onAlternatingCase}>
-          AlernateCase
+        <Button
+          color={`${props.mode === "dark" && "white"}`}
+          className=" w-fit m-2"
+          onClick={onAlternatingCase}
+        >
+          AlternateCase
         </Button>
-        <Button className=" w-fit m-2" onClick={handleSome}>
+        <Button
+          color={`${props.mode === "dark" && "white"}`}
+          className=" w-fit m-2"
+          onClick={handleSome}
+        >
           RemoveSpace
         </Button>
-        <Button className=" w-fit m-2" onClick={() => handleReverse(text)}>
+        <Button
+          color={`${props.mode === "dark" && "white"}`}
+          className=" w-fit m-2"
+          onClick={() => handleReverse(text)}
+        >
           ReverseText
         </Button>
       </div>
@@ -141,7 +165,7 @@ const Textform = () => {
         Minutes To Read
       </p>
       <h2>Preview</h2>
-      <p>{text}</p>
+      <p>{text.length>0?text:"Enter the text above to Preview it Here!!"}</p>
     </div>
   );
 };

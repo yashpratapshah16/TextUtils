@@ -4,6 +4,7 @@ import {
   Collapse,
   Typography,
   IconButton,
+  Switch,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -13,7 +14,7 @@ function NavList() {
       <Typography
         as="li"
         variant="small"
-        color="blue-gray"
+        color="gray"
         className="p-1 font-medium"
       >
         <a
@@ -26,11 +27,11 @@ function NavList() {
       <Typography
         as="li"
         variant="small"
-        color="blue-gray"
+        color="gray"
         className="p-1 font-medium"
       >
         <a
-          href="/"
+          href="/about"
           className="flex items-center hover:text-blue-500 transition-colors"
         >
           About
@@ -40,7 +41,7 @@ function NavList() {
   );
 }
 
-export default function MyNavbar() {
+export default function MyNavbar(props) {
   const [openNav, setOpenNav] = React.useState(false);
 
   const handleWindowResize = () =>
@@ -53,10 +54,17 @@ export default function MyNavbar() {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
-
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-6 py-3">
-      <div className="flex items-center justify-between text-blue-gray-900">
+    <Navbar
+      className={`mx-auto max-w-screen-xl px-6 py-3 ${
+        props.mode === "dark" && " bg-#1c1919"
+      }`}
+    >
+      <div
+        className={`flex items-center justify-between text-${
+          props.mode === "light" ? "blue-gray-900" : "white"
+        }`}
+      >
         <Typography
           as="a"
           href="/"
@@ -65,6 +73,9 @@ export default function MyNavbar() {
         >
           TextUtils
         </Typography>
+        <div className="ml-auto sm:mr-5">
+          <Switch color="blue-gray" label="DarkMode" onClick={props.handler} />
+        </div>
         <div className="hidden lg:block">
           <NavList />
         </div>
