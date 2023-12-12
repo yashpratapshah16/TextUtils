@@ -4,7 +4,7 @@ const MyAlert = (props) => {
   return (
     props.alert && (
       <Alert
-        className=" w-2/4 absolute top-10 left-1/4"
+        className=" lg:w-2/4 absolute top-10 lg:left-1/4"
         color={props.alert.color}
       >
         {props.alert.message}
