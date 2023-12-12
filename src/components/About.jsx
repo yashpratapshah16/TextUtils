@@ -4,7 +4,7 @@ export default function About(props) {
   return (
     <div
       className={`flex flex-col items-center mx-3 ${
-        props.mode === "dark" && "text-white"
+        props.mode && "text-white"
       }`}
     >
       <h1 className=" my-5">About</h1>

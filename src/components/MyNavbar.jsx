@@ -57,12 +57,12 @@ export default function MyNavbar(props) {
   return (
     <Navbar
       className={`mx-auto max-w-screen-xl px-6 py-3 ${
-        props.mode === "dark" && " bg-#1c1919"
+        props.mode && " bg-#1c1919"
       }`}
     >
       <div
         className={`flex items-center justify-between text-${
-          props.mode === "light" ? "blue-gray-900" : "white"
+          props.mode === false ? "blue-gray-900" : "white"
         }`}
       >
         <Typography

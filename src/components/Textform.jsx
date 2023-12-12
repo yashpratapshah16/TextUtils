@@ -15,6 +15,9 @@ const Textform = (props) => {
 
   const handleTextCopy = () => {
     navigator.clipboard.writeText(text);
+    text.length > 0
+      ? props.handler("Text Is Copied!", "green")
+      : props.handler("Please Enter Some Text ! ", "red");
   };
 
   const onAlternatingCase = () => {
@@ -27,11 +30,17 @@ const Textform = (props) => {
       }
     }
     setText(newtext);
+    text.length > 0
+      ? props.handler("Text Is Converted To AlernateCase!", "green")
+      : props.handler("Please Enter Some Text ! ", "red");
   };
 
   const handleSome = () => {
     let res = text.split(/[ ]+/);
     setText(res.join(" "));
+    text.length > 0
+      ? props.handler("Extra Space Is Removed!", "green")
+      : props.handler("Please Enter Some Text ! ", "red");
   };
 
   const handleReverse = (str) => {
@@ -48,6 +57,9 @@ const Textform = (props) => {
 
     // Joining the array elements
     setText(revArray.join(""));
+    text.length > 0
+      ? props.handler("Text Is Reversed!", "green")
+      : props.handler("Please Enter Some Text ! ", "red");
   };
 
   const vowels = ["a", "e", "i", "o", "u"];
@@ -65,77 +77,91 @@ const Textform = (props) => {
   return (
     <div
       className={`Main sm:w-3/5 mx-auto flex flex-col ${
-        props.mode === "dark" && "text-white"
+        props.mode && "text-white"
       }`}
     >
       <h1 className=" text-2xl my-2">Enter The Text To Analyze Below</h1>
       <textarea
         onChange={(e) => setText(e.target.value)}
-        className={` my-2 p-3 border-solid border border-${props.mode==="light"?'black':'white bg-black'} resize-none `}
+        className={` my-2 p-3 border-solid border border-${
+          props.mode === false ? "black" : "white bg-black"
+        } resize-none `}
         value={text}
         rows="4"
         id="textBox"
       ></textarea>
       <div>
         <Button
-          color={`${props.mode === "dark" && "white"}`}
+          color={`${props.mode && "white"}`}
           className=" w-fit m-2"
           onClick={() => {
             setText("");
+            text.length
+              ? props.handler("Text Is Cleared!", "green")
+              : props.handler("Please Enter Some Text ! ", "red");
           }}
         >
           ClearText
         </Button>
         <Button
-          color={`${props.mode === "dark" && "white"}`}
+          color={`${props.mode && "white"}`}
           className=" w-fit m-2"
           onClick={() => {
             setText(text.toUpperCase());
+            text.length > 0
+              ? props.handler("Text Is Converted To UpperCase!", "green")
+              : props.handler("Please Enter Some Text ! ", "red");
           }}
         >
           UpperCase
         </Button>
         <Button
-          color={`${props.mode === "dark" && "white"}`}
+          color={`${props.mode && "white"}`}
           className=" w-fit m-2"
           onClick={() => {
             setText(text.toLowerCase());
+            text.length > 0
+              ? props.handler("Text Is Converted To LowerCase!", "green")
+              : props.handler("Please Enter Some Text ! ", "red");
           }}
         >
           LowerCase
         </Button>
         <Button
-          color={`${props.mode === "dark" && "white"}`}
+          color={`${props.mode && "white"}`}
           className=" w-fit m-2"
           onClick={() => {
             setText(titleCase(text));
+            text.length > 0
+              ? props.handler("Text Is Converted To TitleCase!", "green")
+              : props.handler("Please Enter Some Text ! ", "red");
           }}
         >
           TitleCase
         </Button>
         <Button
-          color={`${props.mode === "dark" && "white"}`}
+          color={`${props.mode && "white"}`}
           className=" w-fit m-2"
           onClick={handleTextCopy}
         >
           CopyText
         </Button>
         <Button
-          color={`${props.mode === "dark" && "white"}`}
+          color={`${props.mode && "white"}`}
           className=" w-fit m-2"
           onClick={onAlternatingCase}
         >
           AlternateCase
         </Button>
         <Button
-          color={`${props.mode === "dark" && "white"}`}
+          color={`${props.mode && "white"}`}
           className=" w-fit m-2"
           onClick={handleSome}
         >
           RemoveSpace
         </Button>
         <Button
-          color={`${props.mode === "dark" && "white"}`}
+          color={`${props.mode && "white"}`}
           className=" w-fit m-2"
           onClick={() => handleReverse(text)}
         >
@@ -165,7 +191,9 @@ const Textform = (props) => {
         Minutes To Read
       </p>
       <h2>Preview</h2>
-      <p>{text.length>0?text:"Enter the text above to Preview it Here!!"}</p>
+      <p>
+        {text.length > 0 ? text : "Enter the text above to Preview it Here!!"}
+      </p>
     </div>
   );
 };
